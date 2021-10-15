@@ -6,7 +6,6 @@ using Cinemachine;
 [RequireComponent(typeof(CinemachineFreeLook))]
 public class FreeLookCamera : MonoBehaviour
 {
-
     private CinemachineFreeLook freeLookCam;
     private Player playerInput;
 

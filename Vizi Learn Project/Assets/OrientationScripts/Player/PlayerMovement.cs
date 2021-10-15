@@ -5,17 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    //public Animator playerAnim;
-
+    public Animator playerAnimator;
     public float speed = 6f;
     public float smoothTime = 0.1f;
     public float gravity = -3f;
 
-    Vector3 velocity;
-
-    float turnSmoothVelocity;
-    public Transform cam;
-
+    private Vector3 velocity;
+    private float turnSmoothVelocity;
+    private Transform cam;
     private Player playerInput;
 
     private void Awake()
@@ -24,36 +21,26 @@ public class PlayerMovement : MonoBehaviour
         playerInput.Enable();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
-        //playerAnim = GetComponent<Animator>();
 
-        //playerAnim.SetInteger("Walk", 0);
+        playerAnimator.SetBool("Walking", false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Movement();
     }
 
     public void Movement()
     {
-        /*float horizontal, vertical;
-        //keyboard
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-        */
-
         Vector2 moveInput = playerInput.PlayerControl.Move.ReadValue<Vector2>();
         Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
 
         if (direction.magnitude >= 0.1f)
         {
-            //playerAnim.SetInteger("Walk", 1);
+            playerAnimator.SetBool("Walking", true);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -62,10 +49,9 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(moveDirection.normalized * speed * Time.deltaTime);
 
         }
-
         else
         {
-            //playerAnim.SetInteger("Walk", 0);
+            playerAnimator.SetBool("Walking", false);
         }
 
         velocity.y += gravity * Time.deltaTime;
