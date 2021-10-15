@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -31,6 +32,23 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Movement();
+
+        if(Keyboard.current[Key.Digit1].wasPressedThisFrame)
+        {
+            playerAnimator.SetTrigger("Thumbs Up");
+        }
+        if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
+        {
+            playerAnimator.SetTrigger("Thinking");
+        }
+        if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
+        {
+            playerAnimator.SetTrigger("Dancing");
+        }
+        if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
+        {
+            playerAnimator.SetTrigger("Wave Hand");
+        }
     }
 
     public void Movement()
