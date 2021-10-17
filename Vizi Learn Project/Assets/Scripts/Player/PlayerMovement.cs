@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 6f;
     public float smoothTime = 0.1f;
     public float gravity = -3f;
+    public TextMesh t;
 
     private Vector3 velocity;
     private float turnSmoothVelocity;
@@ -20,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     {
         playerInput = new Player();
         playerInput.Enable();
+
+        t.text = PhotonNetwork.NickName;
     }
 
     private void Start()
